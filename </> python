@@ -1,0 +1,114 @@
+import numpy as np
+import sounddevice as sd
+import time
+import sys
+
+# Optional live plot
+USE_PLOT = True
+try:
+    import matplotlib.pyplot as plt
+except Exception:
+    USE_PLOT = False
+
+
+def find_peaks(freqs: np.ndarray, mags: np.ndarray, k: int = 5, min_hz: float = 20.0):
+    """Return top-k frequency peaks above min_hz."""
+    idx = np.where(freqs >= min_hz)[0]
+    freqs2 = freqs[idx]
+    mags2 = mags[idx]
+
+    # Take top-k indices by magnitude
+    top = np.argpartition(mags2, -k)[-k:]
+    top = top[np.argsort(mags2[top])[::-1]]
+    return [(float(freqs2[i]), float(mags2[i])) for i in top]
+
+
+def scan_frequency(
+    sample_rate: int = 44100,
+    seconds_per_scan: float = 0.25,
+    device=None,
+    top_k: int = 5
+):
+    """
+    Records microphone audio in short windows and scans frequency content using FFT.
+    Prints dominant frequency and top peaks each scan.
+    """
+    block_size = int(sample_rate * seconds_per_scan)
+    if block_size < 1024:
+        block_size = 1024
+
+    # Hann window reduces spectral leakage
+    window = np.hanning(block_size)
+
+    # Frequency bins for rFFT
+    freqs = np.fft.rfftfreq(block_size, d=1.0 / sample_rate)
+
+    # Plot setup
+    if USE_PLOT:
+        plt.ion()
+        fig, ax = plt.subplots()
+        line, = ax.plot(freqs, np.zeros_like(freqs))
+        ax.set_xlabel("Frequency (Hz)")
+        ax.set_ylabel("Magnitude")
+        ax.set_title("Live Frequency Scan (FFT)")
+        ax.set_xlim(0, min(5000, sample_rate / 2))
+        ax.set_ylim(0, 1)
+        fig.tight_layout()
+
+    print("Starting frequency scan...")
+    print("Tip: hum, whistle, or play a tone to see a strong peak.")
+    print("Press Ctrl+C to stop.\n")
+
+    try:
+        while True:
+            audio = sd.rec(frames=block_size, samplerate=sample_rate, channels=1, dtype="float32", device=device)
+            sd.wait()
+            x = audio[:, 0]
+
+            # Remove DC offset
+            x = x - np.mean(x)
+
+            # Window then FFT
+            X = np.fft.rfft(x * window)
+            mags = np.abs(X)
+
+            # Normalize mags for nicer display
+            max_mag = float(np.max(mags)) if np.max(mags) > 0 else 1.0
+            mags_norm = mags / max_mag
+
+            # Dominant frequency (ignore very low < 20 Hz)
+            valid = freqs >= 20
+            dom_i = np.argmax(mags[valid])
+            dom_freq = float(freqs[valid][dom_i])
+            dom_mag = float(mags[valid][dom_i])
+
+            peaks = find_peaks(freqs, mags, k=top_k, min_hz=20.0)
+
+            # Print results
+            peaks_str = ", ".join([f"{f:.1f}Hz" for f, _ in peaks])
+            print(f"Dominant: {dom_freq:.1f} Hz | Peaks: {peaks_str}")
+
+            # Live plot
+            if USE_PLOT:
+                line.set_ydata(mags_norm)
+                ax.set_ylim(0, max(0.2, float(np.max(mags_norm)) * 1.05))
+                fig.canvas.draw()
+                fig.canvas.flush_events()
+
+            time.sleep(0.02)
+
+    except KeyboardInterrupt:
+        print("\nStopped.")
+        return
+
+
+if __name__ == "__main__":
+    # You can adjust these defaults if needed
+    SAMPLE_RATE = 44100
+    SECONDS_PER_SCAN = 0.25
+    TOP_K = 5
+
+    # If you get device errors, list devices by uncommenting:
+    # print(sd.query_devices()); sys.exit(0)
+
+    scan_frequency(sample_rate=SAMPLE_RATE, seconds_per_scan=SECONDS_PER_SCAN, top_k=TOP_K)
