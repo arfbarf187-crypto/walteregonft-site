@@ -1,0 +1,47 @@
+// Frequency scanner using interrupt pulse counting
+// Connect input signal to D2 on Arduino Uno/Nano (INT0)
+
+const byte SIGNAL_PIN = 2;          // Interrupt-capable pin on Uno/Nano
+const unsigned long GATE_MS = 500;  // Measurement window in milliseconds
+
+volatile unsigned long pulseCount = 0;
+
+void IRAM_ATTR onPulse() {  // IRAM_ATTR harmless on AVR; useful on ESP boards
+  pulseCount++;
+}
+
+void setup() {
+  Serial.begin(115200);
+  pinMode(SIGNAL_PIN, INPUT); // use INPUT_PULLUP if you need it for open-collector signals
+  attachInterrupt(digitalPinToInterrupt(SIGNAL_PIN), onPulse, RISING);
+
+  Serial.println("Frequency Scan (pulse count) started.");
+  Serial.println("Send a square wave / pulse train into D2 and GND.\n");
+}
+
+void loop() {
+  // Take an atomic snapshot over the gate time
+  pulseCount = 0;
+  unsigned long start = millis();
+
+  // Wait exactly GATE_MS
+  while (millis() - start < GATE_MS) {
+    // do nothing
+  }
+
+  noInterrupts();
+  unsigned long count = pulseCount;
+  interrupts();
+
+  // Frequency = pulses / seconds
+  float seconds = GATE_MS / 1000.0;
+  float freqHz = count / seconds;
+
+  Serial.print("Pulses: ");
+  Serial.print(count);
+  Serial.print("  |  Frequency: ");
+  Serial.print(freqHz, 2);
+  Serial.println(" Hz");
+
+  delay(200);
+}
