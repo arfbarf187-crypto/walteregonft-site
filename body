@@ -1,0 +1,8 @@
+<section class="video-section">
+  <h2>Hood Catz Preview</h2>
+
+  <video controls width="100%" poster="assets/poster.jpg">
+    <source src="assets/hoodcatz-preview.mp4" type="video/mp4">
+    Your browser does not support video.
+  </video>
+</section>
