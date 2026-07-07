@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>The Block | Walter Ego NFT</title>
+  <meta name="description" content="Step onto the block — talk to the Hood Catz crew and catch the theater reel." />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Barlow:wght@400;500;600;700;800&family=Orbitron:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="assets/css/styles.css" />
+  <link rel="stylesheet" href="assets/css/block.css" />
+</head>
+<body>
+  <header class="site-header">
+    <div class="container nav-wrap">
+      <a class="brand" href="index.html"><img src="assets/img/purple-diamond.svg" alt="Walter Ego NFT logo" /><span>Walter Ego NFT</span></a>
+      <button class="nav-toggle" aria-label="Open navigation">☰</button>
+      <nav class="site-nav">
+        <a href="index.html">Home</a>
+        <a href="crew.html">The Crew</a>
+        <a href="production.html">Production</a>
+        <a href="universe.html">Universe</a>
+        <a class="active" href="block.html">The Block</a>
+        <a href="gallery.html">Gallery</a>
+        <a href="contact.html">Contact</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="page-main">
+    <section class="page-hero slim">
+      <div class="container">
+        <p class="eyebrow">Step inside</p>
+        <h1>The Block</h1>
+        <p>This is the corner everything runs through. Tap a face to talk. Tap the marquee for the theater.</p>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="container">
+        <div class="block-scene" id="blockScene">
+          <div class="sky-glow"></div>
+          <div class="skyline"></div>
+          <button class="theater-marquee" id="theaterBtn" type="button">🎬 THE THEATER</button>
+          <div class="block-street"></div>
+          <div class="hotspot-layer" id="hotspotLayer"></div>
+          <p class="block-hint">Tap a crew member to talk · tap the marquee for the theater</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <div class="block-overlay" id="charOverlay">
+    <div class="block-panel" id="charPanel">
+      <button class="close-btn" data-close>&times;</button>
+      <h3 id="charName"></h3>
+      <p class="panel-role" id="charRole"></p>
+      <div class="line-log" id="charLine"></div>
+      <button class="talk-btn" id="talkBtn">Talk to me</button>
+    </div>
+  </div>
+
+  <div class="block-overlay" id="theaterOverlay">
+    <div class="block-panel theater-panel" id="theaterPanel">
+      <button class="close-btn" data-close>&times;</button>
+      <h3>The Theater</h3>
+      <p class="panel-role">Fresh cuts from the block.</p>
+      <div id="theaterEmbed">
+        <p style="color:rgba(255,255,255,0.7); font-size:0.9rem;">
+          Drop your YouTube channel link and this spot plays your shorts on a loop.
+          For now — <a href="https://www.youtube.com/results?search_query=alter+ego+entertainment+hood+catz" target="_blank" rel="noopener" style="color:var(--purple-2); font-weight:700;">check the latest shorts →</a>
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <footer class="site-footer">
+    <div class="container footer-wrap"><p>© 2026 Walter Ego NFT / Hood Catz.</p></div>
+  </footer>
+  <script src="assets/js/app.js"></script>
+  <script src="assets/js/block.js"></script>
+</body>
+</html>
