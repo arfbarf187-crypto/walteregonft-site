@@ -4,6 +4,7 @@
       id: "leo",
       name: "Leo",
       role: "Lead presence — Chairman of the Block",
+      avatar: "assets/img/personas/leo-3d.jpg",
       lines: [
         "Yeah, I run this block. Not 'cause I'm loud — 'cause I'm right.",
         "Everybody wants smoke till the smoke actually shows up.",
@@ -16,6 +17,7 @@
       id: "rico",
       name: "Rico",
       role: "Style specialist — Public Relations",
+      avatar: "assets/img/personas/rico-3d.jpg",
       lines: [
         "Presentation is power, my friend. Look at me — case closed.",
         "I could talk my way out of a parking ticket and INTO a discount.",
@@ -28,6 +30,7 @@
       id: "mustachio",
       name: "Mustachio",
       role: "Silent muscle — Head of Security",
+      avatar: "assets/img/personas/mustachio-3d.jpg",
       lines: [
         "...",
         "You good. Just checking.",
@@ -40,6 +43,7 @@
       id: "bonny",
       name: "Bonny",
       role: "Bold protector — Enforcement of Standards",
+      avatar: "assets/img/personas/bonny-3d.jpg",
       lines: [
         "I read the room before you walked in. I already know how this goes.",
         "Two steps ahead. Always. That's not luck, that's discipline.",
@@ -52,6 +56,7 @@
       id: "quita",
       name: "Quita",
       role: "Quiet soldier",
+      avatar: "assets/img/personas/quita-3d.jpg",
       lines: [
         "People underestimate quiet. That's their mistake, not mine.",
         "I keep the timing. I keep the secrets. Both matter more than talk.",
@@ -64,6 +69,7 @@
       id: "arf",
       name: "A.R.F.",
       role: "Guardian presence — Transportation & Heavy Matters",
+      avatar: "assets/img/personas/arf-3d.jpg",
       lines: [
         "Heavy chain. Heavier loyalty. Don't test the math.",
         "I show up first, I leave last. Every time. No exceptions.",
@@ -76,6 +82,7 @@
       id: "sirjamz",
       name: "Sir Jamz",
       role: "Vehicle care & good vibes",
+      avatar: "assets/img/personas/sirjamz-3d.jpg",
       lines: [
         "Purple paint, clean interior, zero excuses. That's the standard.",
         "Take care of your ride, your ride takes care of you. Simple math.",
@@ -106,8 +113,11 @@
     btn.className = "hotspot";
     btn.type = "button";
     btn.setAttribute("aria-label", "Talk to " + c.name);
+    var avatarInner = c.avatar
+      ? '<img src="' + c.avatar + '" alt="' + c.name + '" loading="lazy" />'
+      : initials(c.name);
     btn.innerHTML =
-      '<span class="avatar-disc">' + initials(c.name) + '</span>' +
+      '<span class="avatar-disc">' + avatarInner + '</span>' +
       '<span class="hotspot-label">' + c.name + '</span>';
     btn.addEventListener("click", function () { openChar(c); });
     layer.appendChild(btn);
@@ -116,9 +126,14 @@
   function openChar(c) {
     active = c;
     lineIndex = 0;
-    nameEl.textContent = c.name;
     roleEl.textContent = c.role;
     lineEl.textContent = c.lines[0];
+    if (c.avatar) {
+      nameEl.innerHTML =
+        '<img class="panel-avatar" src="' + c.avatar + '" alt="' + c.name + '" />' + c.name;
+    } else {
+      nameEl.textContent = c.name;
+    }
     overlay.classList.add("open");
   }
 
