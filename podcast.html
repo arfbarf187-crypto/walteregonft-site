@@ -161,6 +161,23 @@
     </div>
   </footer>
 
+
+  <button id="leoChatLauncher" class="leo-chat-launcher" type="button">
+    <img src="assets/img/personas/leo-3d.jpg" alt="Leo" />
+    Talk to Leo
+  </button>
+  <div id="leoChatPanel" class="leo-chat-panel">
+    <div class="leo-chat-head">
+      <strong>Leo — live on the block</strong>
+      <button id="leoChatClose" class="leo-chat-close" type="button" aria-label="Close">×</button>
+    </div>
+    <div id="leoChatLog" class="leo-chat-log"></div>
+    <form id="leoChatForm" class="leo-chat-form">
+      <input id="leoChatInput" type="text" placeholder="Say something to Leo..." autocomplete="off" />
+      <button type="submit">Send</button>
+    </form>
+  </div>
   <script src="assets/js/app.js"></script>
+  <script src="assets/js/leo-chat.js"></script>
 </body>
 </html>
