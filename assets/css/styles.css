@@ -606,5 +606,6 @@ body.hood-bg::after {
 }
 body.hood-bg--ca::before { background-image: url('../img/hood/hood-ca.jpg'); }
 body.hood-bg--cn::before { background-image: url('../img/hood/hood-cn.jpg'); }
+body.hood-bg--realblock::before { background-image: url('../img/hood/hood-the-block-real.jpg'); }
 body.hood-bg--hermitage::before { background-image: url('../img/hood/hood-hermitage909.jpg'); }
 body.hood-bg--hubtheater::before { background-image: url('../img/hood/hood-hubtheater.jpg'); }
