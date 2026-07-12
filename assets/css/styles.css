@@ -618,3 +618,9 @@ body.hood-bg--cn::before { background-image: url('../img/hood/hood-cn.jpg'); }
 body.hood-bg--realblock::before { background-image: url('../img/hood/hood-the-block-real.jpg'); }
 body.hood-bg--hermitage::before { background-image: url('../img/hood/hood-hermitage909.jpg'); }
 body.hood-bg--hubtheater::before { background-image: url('../img/hood/hood-hubtheater.jpg'); }
+body.hood-bg--augusta::before { background-image: url('../img/gallery/nft-augusta-street.jpg'); }
+body.hood-bg--pasadita::before { background-image: url('../img/gallery/pasadita-storefront.jpg'); }
+body.hood-bg--pasadita-corner::before { background-image: url('../img/gallery/pasadita-buick.jpg'); }
+body.hood-bg--square::before { background-image: url('../img/gallery/nft-square-chicago-hood.jpg'); }
+body.hood-bg--house-purple::before { background-image: url('../img/gallery/real-house-purple-challenger.jpg'); }
+body.hood-bg--house-black::before { background-image: url('../img/gallery/real-house-black-challenger.jpg'); }
