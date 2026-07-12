@@ -588,17 +588,26 @@ p, li, label { color: var(--muted); font-size: 1.05rem; line-height: 1.7; }
 body.hood-bg { position: relative; }
 body.hood-bg::before {
   content: "";
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  min-height: 100vh;
   z-index: -2;
   background-size: cover;
-  background-position: center;
-  background-attachment: fixed;
+  background-position: top center;
+  background-repeat: no-repeat;
+  background-attachment: scroll;
 }
 body.hood-bg::after {
   content: "";
-  position: fixed;
-  inset: 0;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  min-height: 100vh;
   z-index: -1;
   background:
     linear-gradient(180deg, rgba(9,7,15,0.88), rgba(9,7,15,0.94)),
